@@ -2,75 +2,68 @@
 <html ng-app="chat">
 <head>
     <title>Socket.IO chat</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
 </head>
 <body ng-controller="mainController as main">
 
-<div class="container" style="padding-top: 60px;">
+<div class="container" style="padding-top: 20px;">
 
     <h1>Bente´s Mean chat</h1>
 
+    <div class="bottom" ng-show="main.hello">
+        <div class="seven columns">
+            <form ng-submit="main.createUser()">
+                <div class="six columns input-user">
+                    <input type="text" placeholder="Enter your Username here" ng-model="main.userInput">
+                </div>
+                <div class="two columns">
+                    <button class="button-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="bottom" ng-show="!main.hello">
+        <div class="seven columns">
+            <form ng-submit="main.sendMessage()">
+                <div class="six columns input-message">
+                    <input type="text" placeholder="Write a message here" ng-model="main.messageInput">
+                </div>
+                <div class="two columns">
+                    <button class="button-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="row">
         <div class="six columns">
-        <ul class="users"ng-show="!main.hello">
-            <li class="user" ng-repeat="user in main.users" smooth-scroll duration="500" scroll-if="{{ $last }}">
-                <p>{{user.body}}</p>
-            </li>
-        </ul>
-    </div>
+            <h5 ng-show="!main.hello">Messages:</h5>
+            <ul class="messages" ng-show="!main.hello">
+                <li class="message" ng-repeat="message in main.messages" smooth-scroll duration="500"
+                    scroll-if="{{ $last }}">
+                    <p>{{message.body}}</p>
+                </li>
+            </ul>
+        </div>
 
         <div class="six columns">
-        <ul class="messages" ng-show="!main.hello">
-            <li class="message" ng-repeat="message in main.messages" smooth-scroll duration="500" scroll-if="{{ $last }}">
-                <p>{{message.body}}</p>
-            </li>
-        </ul>
-    </div>
-    </div>
+            <h5 ng-show="!main.hello">Users online:</h5>
+            <ul class="users" ng-show="!main.hello">
+                <li class="user" ng-repeat="user in main.users" smooth-scroll duration="500" scroll-if="{{ $last }}">
+                    <p>{{user.body}}</p>
+                </li>
+            </ul>
+        </div>
 
-       <!-- <table class="u-full-width" ng-show="!main.hello">
-            <tbody>
-            <tr ng-repeat="message in main.messages">
-                <td>User:</td>
-                <td>{{message.body}}</td>
-            </tr>
-            </tbody>
-        </table>-->
-
-</div>
-
-<div class="bottom" ng-show="main.hello">
-    <div class="container">
-        <form ng-submit="main.createUser()">
-
-            <div class="ten columns input-user">
-                <input type="text" ng-model="main.userInput">
-            </div>
-            <div class="two columns">
-                <button class="button-primary">Submit</button>
-            </div>
-
-        </form>
     </div>
 </div>
 
-<div class="bottom" ng-show="!main.hello">
-    <div class="container">
-        <form ng-submit="main.sendMessage()">
-
-            <div class="ten columns input-message">
-                <input type="text" ng-model="main.messageInput">
-            </div>
-            <div class="two columns">
-                <button class="button-primary">Send</button>
-            </div>
-
-        </form>
-    </div>
-</div>
 
 </body>
 </html>

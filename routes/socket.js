@@ -33,20 +33,14 @@ module.exports = function(socket) {
             callback(true);
             socket.username = data;
             users.push(socket.username);
-            updateUsers();                          //-----
+        broadcast('user',data);                                         //---- føre skrev jeg ('user', users)
             }
         //broadcast('message','user connected: '+socket.username);          //---- udkommenteret
-        //broadcast('user', users);                                         //---- udkommenteret
     });
 
-   function updateUsers() {                     //----
-        socket.emit('user', users);            //----
-    }                                           //----
-    /*
     socket.on('disconnect', function (data) {               //----
         if (!socket.username) return;                       //----
         users.splice(users.indexOf(socket.username), 1);    //----
-        updateUsers();                                      //----
+        broadcast('user',data);                                    //----
     });                                                     //----
-*/
 };

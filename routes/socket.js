@@ -33,14 +33,14 @@ module.exports = function(socket) {
             callback(true);
             socket.username = data;
             users.push(socket.username);
-        broadcast('user',data);                                         //---- føre skrev jeg ('user', users)
+        //broadcast('user',data);                                         //---- føre skrev jeg ('user', users)
             }
-        //broadcast('message','user connected: '+socket.username);          //---- udkommenteret
-    });
+        broadcast('user','user connected: '+socket.username);          //---- før stod der message her, men nu har jeg skrevet user
+    });                                                                 //---- for at få beskederne ud det rigtige sted!
 
     socket.on('disconnect', function (data) {               //----
-        if (!socket.username) return;                       //----
-        users.splice(users.indexOf(socket.username), 1);    //----
+        if (!socket.username) return;                       //----      det er derfor jeg kan se når der er nogle der logger af
+        users.splice(users.indexOf(socket.username), 1);    //----      den viser dog ikke hvem det er.
         broadcast('user',data);                                    //----
     });                                                     //----
 };
